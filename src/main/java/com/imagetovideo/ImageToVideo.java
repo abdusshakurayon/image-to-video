@@ -13,10 +13,10 @@ public class ImageToVideo {
 
   public static void main(String[] args) {
     Scanner s = new Scanner(System.in);
-    System.out.println("Enter the directory path of images (for eg c:\\test)");
+    System.out.println("Enter the directory path of images (for eg /Users/user/Documents/image)");
     String imgPath = s.nextLine();
     System.out.println(
-        "Enter the directory with video file name where resulting video will be saved (for eg c:\\test\\abc.mp4)");
+        "Enter the directory with video file name where resulting video will be saved (for eg /Users/user/Documents/image/test.mp4)");
     String vidPath = s.nextLine();
     ArrayList<String> links = new ArrayList<String>();
     File f = new File(imgPath);
@@ -39,10 +39,11 @@ public class ImageToVideo {
       recorder.setFormat("mp4");
       recorder.setVideoQuality(0); // maximum quality
       recorder.start();
+      System.err.println(links.size());
       for (int j = 0; j < 30; j++) {
-//        for (int i = 0; i < links.size(); i++) {
-        recorder.record(grabberConverter.convert(cvLoadImage(links.get(0))));
-//        }
+        for (int i = 0; i < links.size(); i++) {
+          recorder.record(grabberConverter.convert(cvLoadImage(links.get(i))));
+        }
       }
       recorder.stop();
     } catch (org.bytedeco.javacv.FrameRecorder.Exception e) {
